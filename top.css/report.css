@@ -1,0 +1,197 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    height: 100vh; /* ให้ body ครอบคลุมความสูงทั้งหมดของหน้าต่าง */
+}
+
+/* สไตล์สำหรับ container หลัก */
+.report-container {
+    max-width: 1440px;
+    width: 100%; /* ปรับขนาดให้เป็น 100% */
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.containerx {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.container h1,
+.report-container h2 {
+    text-align: center;
+    margin: 1rem 0 2rem 0;
+    color: #333;
+    font-size: 24px;
+    font-weight: 1000;
+}
+
+/* สไตล์สำหรับตาราง */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px auto; /* จัดให้อยู่ตรงกลาง */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: center !important; /* ใช้ !important เพื่อบังคับให้ตรงกลาง */
+    border: 1px solid #000000 !important ;
+    vertical-align: middle !important; /* ใช้ !important เพื่อบังคับให้ตรงกลางแนวตั้ง */
+}
+
+th {
+    background-color: #efefef;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* สไตล์สำหรับ navbar */
+.navbar.navbar-expand-lg {
+    background-color: #f9f9f9;
+    margin: 0 0 2rem 0;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.navbar-brand {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.navbar-nav {
+    font-size: 1.5rem;
+    color: #333;
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-link {
+    position: relative;
+    display: inline-block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.4s, border-radius 0.4s, color 0.4s;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #ff6600;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.4s;
+}
+
+.nav-link.active {
+    color: #ff6600 !important;
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.nav-link:hover {
+    color: #ff6600;
+}
+
+.nav-link.active::after {
+    color: #ff6600;
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.collapse .navbar-collapse a {
+    margin: 0 2rem 0 2rem;
+}
+
+/* สไตล์สำหรับ pagination */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: inline-block;
+}
+
+.pagination button {
+    padding: 8px 12px;
+    margin: 0 4px;
+    background-color: white;
+    border: 1px solid #007bff;
+    color: #007bff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination button:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #0056b3;
+}
+
+/* สไตล์สำหรับ search */
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-container input {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.search-container button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-container button:hover {
+    background-color: #0056b3;
+}
+
+
+.table-responsive {
+    overflow-x: auto; /* อนุญาตให้เลื่อนในแนวนอน */
+    -webkit-overflow-scrolling: touch; /* ทำให้การเลื่อนราบรื่นบนอุปกรณ์สัมผัส */
+}
+
+.table-responsive table {
+    width: 100%;
+    white-space: nowrap; /* ป้องกันการตัดบรรทัดของเนื้อหาภายในตาราง */
+}

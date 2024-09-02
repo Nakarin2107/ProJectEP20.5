@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Signup Form</title>
+    <link rel="stylesheet" href="top.css/login.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="user-display" id="userDisplay"></div>
+        <div class="wrapper">
+            <div class="title-text">
+                <div class="title login">Login</div>
+                <div class="title signup">Signup</div>
+            </div>
+            <div class="form-container">
+                <div class="slide-controls">
+                    <input type="radio" name="slide" id="login" checked>
+                    <input type="radio" name="slide" id="signup">
+                    <label for="login" class="slide login">Login</label>
+                    <label for="signup" class="slide signup">Signup</label>
+                    <div class="slider-tab"></div>
+                </div>
+                <div class="form-inner">
+                    <!-- ฟอร์มเข้าสู่ระบบ -->
+                    <form action="#" class="login">
+                        <div class="field">
+                            <input type="text" placeholder="User" id="loginUsername" required>
+                        </div>
+                        <div class="field">
+                            <input type="password" placeholder="Password" id="loginPassword" required>
+                        </div>
+                        <div class="field btn">
+                            <div class="btn-layer"></div>
+                            <input type="button" value="Login" onclick="loginUser()">
+                        </div>
+                        <div class="signup-link">Not a member? <a href="#">Signup now</a></div>
+                    </form>
+
+                    <!-- ฟอร์มสมัครสมาชิก -->
+                    <form action="#" class="signup">
+                        <div class="field">
+                            <input type="text" placeholder="ชื่อผู้ใช้ที่จะแสดงในเว็บ" id="displayName" required>
+                        </div>
+                        <div class="field">
+                            <input type="text" placeholder="User" id="signupUsername" required>
+                        </div>
+                        <div class="field">
+                            <input type="password" placeholder="Password" id="signupPassword" required>
+                        </div>
+                        <div class="field btn">
+                            <div class="btn-layer"></div>
+                            <input type="button" value="Signup" onclick="signupUser()">
+                        </div>
+                    </form>
+                </div>
+            </div>
+         </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="main.js/login.js">
+       
+    </script>
+</body>
+</html>
