@@ -8,7 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('userDisplayName').textContent = displayName;
         document.getElementById('staffName').value = displayName; // ตั้งค่าให้ฟิลด์เจ้าหน้าที่
     }
+
+    // ตั้งค่าให้ฟิลด์วันเวลายืมเป็นวันเวลาปัจจุบัน
+    const now = new Date();
+    const formattedDateTime = now.toISOString().slice(0, 16); // แปลงรูปแบบวันเวลาปัจจุบันให้ตรงกับ input[type="datetime-local"]
+    document.getElementById('borrowDate').value = formattedDateTime;
 });
+
 
 // ฟังก์ชันออกจากระบบ
 document.getElementById('logoutButton').addEventListener('click', () => {

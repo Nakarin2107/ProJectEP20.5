@@ -25,41 +25,42 @@ function generateReport() {
 
         const requests = getRequests();
 
-        // กรองคำขอตามเดือนและปีที่เลือก โดยไม่กรองสถานะ
+        // กรองคำขอตามเดือนและปีที่เลือก
         const filteredRequests = requests.filter(request => {
             const requestDate = new Date(request.dateTime);
             return (
                 requestDate.getFullYear() === selectedYear &&
-                requestDate.getMonth() + 1 === parseInt(selectedMonth, 10)
+                (selectedMonth === 'all' || requestDate.getMonth() + 1 === parseInt(selectedMonth, 10))
             );
         });
 
         // ตรวจสอบว่าพบข้อมูลหรือไม่
         if (filteredRequests.length === 0) {
-            // แสดงการแจ้งเตือนด้วย SweetAlert2
             Swal.fire({
                 icon: 'warning',
                 title: 'ไม่พบข้อมูล',
                 text: 'ไม่พบข้อมูลที่ตรงกับเดือนและปีที่เลือก',
                 confirmButtonText: 'ตกลง'
             });
-            return; // ออกจากฟังก์ชันหากไม่พบข้อมูล
         }
 
-        displayReport(filteredRequests);
+        displayReport(filteredRequests); // เรียกฟังก์ชันเพื่อแสดงตาราง ไม่ว่าจะพบข้อมูลหรือไม่
     } catch (error) {
         console.error('เกิดข้อผิดพลาดในการสร้างรายงาน:', error);
     }
 }
-
 
 // ฟังก์ชันแสดงข้อมูลในตารางรายงาน
 function displayReport(requests) {
     const reportTableBody = document.querySelector('#reportTable tbody');
     reportTableBody.innerHTML = ''; // ล้างข้อมูลเก่าออกก่อน
 
+    // ตรวจสอบว่าพบข้อมูลหรือไม่
     if (requests.length === 0) {
-        Swal.fire('ไม่พบข้อมูลที่ตรงกับเดือนและปีที่เลือก');
+        // สร้างโครงสร้างตารางว่างเปล่า
+        const emptyRow = document.createElement('tr');
+        emptyRow.innerHTML = `<td colspan="7" style="text-align: center;">ไม่พบข้อมูล</td>`;
+        reportTableBody.appendChild(emptyRow);
         return;
     }
 
@@ -73,9 +74,9 @@ function displayReport(requests) {
         row.innerHTML = `
             <td>${formatDate(request.dateTime)}</td>
             <td>${request.returnDateTime ? formatDate(request.returnDateTime) : '-'}</td>
-            <td>${request.equipment}</td>
-            <td>${request.studentName}</td>
             <td>${request.studentId}</td>
+            <td>${request.studentName}</td>
+            <td>${request.equipment}</td>
             <td>${request.staffName || '-'}</td>
             <td>${request.status}</td>
         `;
@@ -84,6 +85,8 @@ function displayReport(requests) {
 
     updatePaginationInfo(requests.length);
 }
+
+
 
 // ฟังก์ชันสำหรับฟอร์แมตวันที่ให้อยู่ในรูปแบบที่ต้องการ
 function formatDate(dateString) {

@@ -49,21 +49,39 @@
         <div class="search-container">
             <label for="studentId">ค้นหาตามรหัสนักศึกษา:</label>
             <input type="text" id="studentId" placeholder="กรอกรหัสนักศึกษา">
+    
+            <label for="monthSelect">เลือกเดือน:</label>
+            <select id="monthSelect">
+                <option value="all">ทั้งหมด</option>
+                <option value="01">มกราคม</option>
+                <option value="02">กุมภาพันธ์</option>
+                <option value="03">มีนาคม</option>
+                <option value="04">เมษายน</option>
+                <option value="05">พฤษภาคม</option>
+                <option value="06">มิถุนายน</option>
+                <option value="07">กรกฎาคม</option>
+                <option value="08">สิงหาคม</option>
+                <option value="09">กันยายน</option>
+                <option value="10">ตุลาคม</option>
+                <option value="11">พฤศจิกายน</option>
+                <option value="12">ธันวาคม</option>
+            </select>
+    
+            <label for="yearSelect">เลือกปี:</label>
+            <input type="number" id="yearSelect" value="2024" min="2000" max="2100" style="width: 80px;">
+    
             <button class="btn btn-primary" onclick="generateStudentReport()">ค้นหา</button>
         </div>
         
         <div id="studentReportContainer">
             <!-- รายงานการยืม-คืนของนักศึกษาแต่ละคนจะถูกเพิ่มที่นี่โดย JavaScript -->
         </div>
-
-        <div id="studentReportContainer">
-            <!-- รายงานการยืม-คืนของนักศึกษาแต่ละคนจะถูกเพิ่มที่นี่โดย JavaScript -->
-        </div>
+    
         <div class="pagination">
             <!-- Pagination จะถูกสร้างที่นี่โดย JavaScript -->
         </div>
-        
     </div>
+    
 
     <script src="main.js/but.js"></script>
     <script src="main.js/student-report.js"></script>

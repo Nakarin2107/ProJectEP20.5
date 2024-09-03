@@ -20,14 +20,6 @@ function populateStaffSelect() {
     });
 }
 
-function setDefaultMonthAndYear() {
-    const currentDate = new Date();
-    const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-    const currentYear = currentDate.getFullYear();
-    document.getElementById('monthSelect').value = currentMonth;
-    document.getElementById('yearSelect').value = currentYear;
-}
-
 function generateStaffSummary() {
     const selectedStaff = document.getElementById('staffSelect').value;
     const selectedMonth = document.getElementById('monthSelect').value;
@@ -39,23 +31,13 @@ function generateStaffSummary() {
         const requestMonth = (requestDate.getMonth() + 1).toString().padStart(2, '0');
         const requestYear = requestDate.getFullYear().toString();
 
-        return request.staffName === selectedStaff && requestMonth === selectedMonth && requestYear === selectedYear;
+        // เช็คเงื่อนไขกรณีเลือก "ทั้งหมด" หรือเดือนที่เจาะจง
+        return request.staffName === selectedStaff &&
+               requestYear === selectedYear &&
+               (selectedMonth === 'all' || requestMonth === selectedMonth);
     });
 
-    const summaryContainer = document.getElementById('staffSummaryContainer');
-    summaryContainer.innerHTML = ''; // ล้างข้อมูลเก่าออกก่อน
-
-    if (filteredRequests.length === 0) {
-        Swal.fire({
-            icon: 'warning',
-            title: 'ไม่พบข้อมูล',
-            text: 'ไม่พบข้อมูลที่ตรงกับเจ้าหน้าที่และเดือนที่เลือก',
-            confirmButtonText: 'ตกลง'
-        });
-        return;
-    }
-
-    displayPaginatedData(filteredRequests);
+    displayPaginatedData(filteredRequests); // เรียกฟังก์ชันเสมอเพื่อแสดงตาราง แม้ไม่มีข้อมูล
     updatePaginationInfo(filteredRequests.length);
 }
 
@@ -69,32 +51,49 @@ function displayPaginatedData(requests) {
     headerRow.innerHTML = `
         <th>วันที่ยืม</th>
         <th>วันที่คืน</th>
-        <th>อุปกรณ์</th>
-        <th>ชื่อนักศึกษา</th>
         <th>รหัสนักศึกษา</th>
+        <th>ชื่อนักศึกษา</th>
+        <th>อุปกรณ์</th>
         <th>สถานะ</th>
     `;
     table.appendChild(headerRow);
 
-    const startIndex = (currentPage - 1) * maxRequestsPerPage;
-    const endIndex = startIndex + maxRequestsPerPage;
-    const paginatedRequests = requests.slice(startIndex, endIndex);
+    if (requests.length === 0) {
+        // แสดง SweetAlert2 เมื่อไม่พบข้อมูล
+        Swal.fire({
+            icon: 'warning',
+            title: 'ไม่พบข้อมูล',
+            text: 'ไม่พบข้อมูลที่ตรงกับเจ้าหน้าที่และเดือนที่เลือก',
+            confirmButtonText: 'ตกลง'
+        });
 
-    paginatedRequests.forEach(request => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${formatDate(request.dateTime)}</td>
-            <td>${request.returnDateTime ? formatDate(request.returnDateTime) : '-'}</td>
-            <td>${request.equipment}</td>
-            <td>${request.studentName}</td>
-            <td>${request.studentId}</td>
-            <td>${request.status}</td>
-        `;
-        table.appendChild(row);
-    });
+        // แสดงข้อความว่าไม่มีข้อมูลในแถวเดียวของตาราง
+        const emptyRow = document.createElement('tr');
+        emptyRow.innerHTML = `<td colspan="6" style="text-align: center;">ไม่พบข้อมูล</td>`;
+        table.appendChild(emptyRow);
+    } else {
+        const startIndex = (currentPage - 1) * maxRequestsPerPage;
+        const endIndex = startIndex + maxRequestsPerPage;
+        const paginatedRequests = requests.slice(startIndex, endIndex);
+
+        paginatedRequests.forEach(request => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${formatDate(request.dateTime)}</td>
+                <td>${request.returnDateTime ? formatDate(request.returnDateTime) : '-'}</td>
+                <td>${request.studentId}</td>
+                <td>${request.studentName}</td>
+                <td>${request.equipment}</td>
+                <td>${request.status}</td>
+            `;
+            table.appendChild(row);
+        });
+    }
 
     summaryContainer.appendChild(table);
 }
+
+
 
 function updatePaginationInfo(totalRequests) {
     const paginationContainer = document.querySelector('.pagination');

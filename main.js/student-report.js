@@ -2,15 +2,32 @@ const maxRequestsPerPage = 10; // กำหนดจำนวนคำขอท�
 let currentPage = 1; // กำหนดหน้าปัจจุบันเป็นหน้าแรก
 
 document.addEventListener('DOMContentLoaded', () => {
-    // ดึงข้อมูลจาก Local Storage หรือฐานข้อมูลเมื่อหน้าโหลดเสร็จ
+    setDefaultMonthAndYear(); // เรียกฟังก์ชันตั้งค่าเริ่มต้น
 });
+
+function setDefaultMonthAndYear() {
+    const currentDate = new Date();
+    const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const currentYear = currentDate.getFullYear();
+    document.getElementById('monthSelect').value = 'all'; // ตั้งค่าเป็น "ทั้งหมด"
+    document.getElementById('yearSelect').value = currentYear;
+}
 
 function generateStudentReport() {
     const studentId = document.getElementById('studentId').value;
+    const selectedMonth = document.getElementById('monthSelect').value;
+    const selectedYear = document.getElementById('yearSelect').value;
     const requests = JSON.parse(localStorage.getItem('requests')) || [];
 
-    // กรองคำขอตามรหัสนักศึกษาที่ค้นหา
-    const filteredRequests = requests.filter(request => request.studentId === studentId);
+    // กรองคำขอตามรหัสนักศึกษาและเดือน/ปีที่ค้นหา
+    const filteredRequests = requests.filter(request => {
+        const requestDate = new Date(request.dateTime);
+        const requestMonth = (requestDate.getMonth() + 1).toString().padStart(2, '0');
+        const requestYear = requestDate.getFullYear().toString();
+        return request.studentId === studentId && 
+               requestYear === selectedYear &&
+               (selectedMonth === 'all' || requestMonth === selectedMonth); // เงื่อนไขเช็ค "ทั้งหมด" หรือเดือนที่เลือก
+    });
 
     const reportContainer = document.getElementById('studentReportContainer');
     reportContainer.innerHTML = ''; // ล้างข้อมูลเก่าออกก่อน
@@ -23,6 +40,25 @@ function generateStudentReport() {
             text: 'ไม่พบข้อมูลที่ตรงกับรหัสนักศึกษาที่เลือก',
             confirmButtonText: 'ตกลง'
         });
+
+        // สร้างตารางว่างพร้อมข้อความแสดงผลว่าไม่มีข้อมูล
+        const table = document.createElement('table');
+        table.className = 'table table-bordered';
+        const headerRow = document.createElement('tr');
+        headerRow.innerHTML = `
+            <th>วันที่ยืม</th>
+            <th>วันที่คืน</th>
+            <th>อุปกรณ์</th>
+            <th>สถานะ</th>
+        `;
+        table.appendChild(headerRow);
+        
+        const emptyRow = document.createElement('tr');
+        emptyRow.innerHTML = `<td colspan="4" style="text-align: center;">ไม่พบข้อมูล</td>`;
+        table.appendChild(emptyRow);
+
+        reportContainer.appendChild(table);
+
         return;
     }
 

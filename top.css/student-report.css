@@ -1,3 +1,4 @@
+/* styles.css */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -5,7 +6,6 @@ body {
     padding: 20px !important;
 }
 
-/* สไตล์สำหรับ container หลัก */
 .container {
     max-width: 1440px !important;
     margin: 0 auto;
@@ -13,6 +13,7 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-x: auto; /* ทำให้ตารางสามารถเลื่อนซ้าย-ขวาได้ */
 }
 
 .containerx {
@@ -33,21 +34,21 @@ body {
     align-items: center;
     gap: 10px;
     margin-bottom: 20px;
+    flex-wrap: wrap; /* ทำให้ฟอร์มยืดหยุ่นเมื่อหน้าจอแคบลง */
 }
 
-/* สไตล์สำหรับตาราง */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 10px auto; /* จัดให้อยู่ตรงกลาง */
+    margin: 10px auto;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
     padding: 12px 15px;
-    text-align: center !important; /* ใช้ !important เพื่อบังคับให้ตรงกลาง */
-    border: 1px solid #000000 !important ;
-    vertical-align: middle !important; /* ใช้ !important เพื่อบังคับให้ตรงกลางแนวตั้ง */
+    text-align: center !important;
+    border: 1px solid #000000 !important;
+    vertical-align: middle !important;
 }
 
 th {
@@ -61,8 +62,6 @@ tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-
-/* สไตล์สำหรับ navbar */
 .navbar.navbar-expand-lg {
     background-color: #f9f9f9;
     margin: 0 0 2rem 0;
@@ -121,22 +120,18 @@ tr:nth-child(even) {
 .collapse .navbar-collapse a {
     margin: 0 2rem 0 2rem;
 }
-.summaryContainer {
-    text-align: center;
-}
-
 
 .pagination-container {
     display: flex;
-    justify-content: center; /* จัดให้อยู่ตรงกลาง */
+    justify-content: center;
     margin-top: 20px;
 }
 
 .pagination {
-    display: flex; /* ใช้ flexbox เพื่อจัดปุ่มให้อยู่ในแนวเดียวกัน */
+    display: flex;
     justify-content: center;
-    align-items: center ;
-    gap: 8px; /* เพิ่มช่องว่างระหว่างปุ่ม */
+    align-items: center;
+    gap: 8px;
 }
 
 .pagination button {

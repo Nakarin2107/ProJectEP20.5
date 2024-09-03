@@ -54,6 +54,7 @@
             <!-- เพิ่มตัวเลือกสำหรับเดือนและปี -->
             <label for="monthSelect">เลือกเดือน:</label>
             <select id="monthSelect">
+                <option value="all">ทั้งหมด</option> 
                 <option value="01">มกราคม</option>
                 <option value="02">กุมภาพันธ์</option>
                 <option value="03">มีนาคม</option>
@@ -67,11 +68,12 @@
                 <option value="11">พฤศจิกายน</option>
                 <option value="12">ธันวาคม</option>
             </select>
-        
+
             <label for="yearSelect">เลือกปี:</label>
             <input type="number" id="yearSelect" value="2024" min="2000" max="2100" style="width: 80px;">
-        
+
             <button class="btn btn-primary" onclick="generateStaffSummary()">ค้นหา</button>
+
         </div>
         
         
