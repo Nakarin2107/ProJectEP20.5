@@ -63,7 +63,7 @@ form button:hover {
 
 .navbar {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between !important; 
   align-items: center;
   position: relative;
 }
@@ -89,8 +89,7 @@ form button:hover {
 }
 .btn-user img {
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
+  width: 20px;
+  height: 20px;
 }
 

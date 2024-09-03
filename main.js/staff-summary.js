@@ -11,6 +11,12 @@ function populateStaffSelect() {
     const staffSelect = document.getElementById('staffSelect');
     const requests = JSON.parse(localStorage.getItem('requests')) || [];
 
+    // สร้างตัวเลือกเริ่มต้นที่เป็นค่าว่าง
+    const defaultOption = document.createElement('option');
+    defaultOption.value = ''; // ค่าว่าง
+    defaultOption.textContent = '-- เลือกเจ้าหน้าที่ --'; // ข้อความแสดงในตัวเลือก
+    staffSelect.appendChild(defaultOption); // เพิ่มตัวเลือกเริ่มต้นใน select
+
     const staffNames = [...new Set(requests.map(request => request.staffName))];
     staffNames.forEach(staff => {
         const option = document.createElement('option');
@@ -19,6 +25,7 @@ function populateStaffSelect() {
         staffSelect.appendChild(option);
     });
 }
+
 
 function generateStaffSummary() {
     const selectedStaff = document.getElementById('staffSelect').value;
